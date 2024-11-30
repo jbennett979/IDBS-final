@@ -1,0 +1,96 @@
+,i_name,flavor,type
+1,butter,salty,fat/oil
+2,granulated sugar,sweet,sugar
+3,brown sugar,sweet,sugar
+4,flour,neutral,flour
+5,salt,salty,spice
+6,baking soda,neutral,leavening agent
+7,ground cinnamon,sweet,spice
+8,ground ginger,ginger,spice
+9,nutmeg,sweet,spice
+10,cloves,sweet,spice
+11,egg yolk,savory,egg
+12,vanilla extract,sweet,spice
+13,pumpkin puree,sweet,vegetable
+14,chocolate chips,sweet,chocolate
+15,apple,sweet,fruit
+16,lemon juice,sour,juice
+17,old fashioned oats,neutral,grain
+18,gyozas,savory,dumpling
+19,vegetable oil,neutral,fat/oil
+20,garlic cloves,savory,aromatic
+21,grated ginger,ginger,aromatic
+22,chicken broth,savory,broth
+23,coconut milk,neutral,milk
+24,soy sauce,salty,sauce
+25,fish sauce,savory,sauce
+26,sesame oil,savory,fat/oil
+27,red curry paste,savory,sauce
+28,lime juice,sour,juice
+29,chives,savory,vegetable
+30,beef,savory,meat
+31,garlic powder,savory,spice
+32,black pepper,savory,spice
+33,olive oil,neutral,fat/oil
+34,onion,savory,vegetable
+35,beef broth,savory,broth
+36,red wine,bitter,wine
+37,potatoes,savory,vegetable
+38,carrots,savory,vegetable
+39,celery,savory,vegetable
+40,tomato paste,savory,vegetable
+41,rosemary,savory,herb
+42,cornstarch,neutral,thickener
+43,water,neutral,water
+44,peas,savory,vegetable
+45,chicken breast,savory,meat
+46,curry powder,savory,spice
+47,coriander,savory,spice
+48,cumin,savory,spice
+49,paprika,savory,spice
+50,tomatoes,savory,vegetable
+51,cornflour,neutral,flour
+52,spinach,savory,vegetable
+53,rice,neutral,grain
+54,chilli flakes,spicy,spice
+55,milk,savory,milk
+56,thyme,savory,herb
+57,heavy cream,savory,milk
+58,parmesan,savory,cheese
+59,parsley,savory,herb
+60,bacon,savory,meat
+61,whole egg,savory,egg
+62,meatballs,savory,meat
+63,italian seasoning,savory,spice
+64,crushed tomatoes,savory,vegetable
+65,pasta,neutral,grain
+66,cocoa powder,sweet,chocolate
+67,powdered sugar,sweet,sugar
+68,lemon zest,sour,fruit
+69,raspberries,sweet,fruit
+70,pecorino romano cheese,savory,cheese
+71,molasses,sweet,sauce
+72,baking powder,neutral,leavening agent
+73,Sage,mint,green
+74,Shallot,onion,vegetable
+75,ground beef,savory,meat
+76,Oregano,spicy,spice
+77,Red Pepper,spicy,spice
+78,jalapeño,spicy,vegetable
+79,Vodka,bitter,alcohol
+80,tortellini,savory,pasta
+81,chili powder,spicy,spice
+82,bell pepper,sweet,vegetable
+83,mushrooms,earthy,fungi
+84,kidney beans,neutral,vegetable
+85,diced tomatoes,sweet,vegetable
+86,Basil,savory,green
+87,Provolone,savory,dairy
+88,beer,bitter,alcohol
+89,lasagna,neutral,pasta
+90,Prosciutto,savory,dairy
+91,Italian Sausage,spicy,meat
+92,Broccoli,neutral,vegetable
+93,Honey,sweet,juice
+94,Ketchup,sweet,juice
+95,Pomegranate Juice,sweet,juice

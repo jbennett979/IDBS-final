@@ -1,0 +1,257 @@
+r_id,amount,i_id
+1,10 tablespoons,1
+1,3/4 cup,2
+1,1/4 cup,3
+1,1 1/2 cup,4
+1,1/4 teaspoon,5
+1,1/2 teaspoon,6
+1,2 teaspoon,7
+1,1/4 teaspoon,8
+1,1/4 teaspoon,9
+1,1/8 teaspoon,10
+1,1,11
+1,1 teaspoon,12
+1,1/3 cup,13
+1,3/4 cup,14
+2,6,15
+2,2 tablespoon,2
+2,3/4 teaspoon,7
+2,1 1/2 teaspoon,16
+2,1 cup,3
+2,3/4 cup,17
+2,3/4 cup,4
+2,1 teaspoon,7
+2,pinch,5
+2,1/2 cup,1
+3,20,18
+3,1 tablespoon,19
+3,4,20
+3,1 teaspoon,21
+3,4 cups,22
+3,1 can,23
+3,1 tablespoon,24
+3,1 tablespoon,25
+3,1 teaspoon,26
+3,3 tablespoon,27
+3,1 teaspoon,3
+3,2 tablespoon,28
+3,sprinkle,29
+4,2 pounds,30
+4,3 tablespoon,4
+4,1/2 teaspoon,31
+4,1/2 teaspoon,5
+4,1/2 teaspoon,32
+4,3 tablespoon,33
+4,1,34
+4,6 cups,35
+4,1/2 cup,36
+4,1 pound,37
+4,4,38
+4,4 ribs,39
+4,3 tablespoon,40
+4,1 teaspoon,41
+4,2 tablespoon,42
+4,2 tablespoon,43
+4,3/4 cup,44
+5,2 tablespoon,19
+5,3,45
+5,1,34
+5,2,20
+5,2 teaspoon,21
+5,2 tablespoon,46
+5,1 tablespoon,47
+5,1/2 tablespoon,48
+5,1 teaspoon,49
+5,1/2 teaspoon,7
+5,1/2 teaspoon,5
+5,1/2 teaspoon,32
+5,2 tablespoon,40
+5,1 can,50
+5,1 cup,22
+5,1 can,23
+5,1 tablespoon,51
+5,2 tablespoon,43
+5,2 cup,52
+5,2 cup,53
+5,sprinkle,47
+5,sprinkle,54
+6,2 tablespoon,33
+6,1,34
+6,2 ribs,39
+6,2,38
+6,2 tablespoon,4
+6,1/2 cup,55
+6,5 cup,22
+6,1 teaspoon,56
+6,1/2 cup,53
+6,2 cup,45
+6,1 tablespoon,16
+6,1/3 cup,57
+6,1/2 cup,58
+6,1/4 teaspoon,5
+6,1/4 teaspoon,32
+6,2 tablespoon,59
+7,1 tablespoon,33
+7,3 slices,60
+7,1 cup,37
+7,pinch,5
+7,pinch,32
+7,5,61
+7,3 tablespoon,55
+7,1 tablespoon,1
+7,1 tablespoon,29
+8,2 1/2 cups,62
+8,1 tablespoon,33
+8,1,34
+8,6,20
+8,1 tablespoon,63
+8,2 tablespoon,40
+8,4 cups,45
+8,1 can,64
+8,2 1/2 cup,65
+8,2 cup,52
+8,1/2 cup,57
+8,pinch,5
+8,pinch,32
+8,sprinkle,58
+8,sprinkle,59
+9,2 teaspoon,33
+9,4,20
+9,2 tablespoon,1
+9,3 cup,22
+9,1/2 teaspoon,32
+9,1/4 teaspoon,5
+9,1/2 pound,65
+9,1 cup,58
+9,3/4 cup,57
+9,1 1/2 tablespoon,59
+10,1 1/2 cup,2
+10,3/4 cup,4
+10,2/3 cup,66
+10,1/2 cup,67
+10,1/2 cup,14
+10,3/4 teaspoon,5
+10,2,61
+10,1/2 cup,33
+10,2 tablespoon,43
+10,1/2 teaspoon,12
+11,1/2 cup,2
+11,1,68
+11,1 cup,1
+11,1 teaspoon,12
+11,1/4 teaspoon,5
+11,2 cup,4
+11,2,68
+11,1 cup,2
+11,1/2 cup,4
+11,3,61
+11,1/8 teaspoon,5
+11,1 cup,69
+11,1/2 cup,16
+11,3 tablespoon,67
+12,2 pounds,37
+12,3,20
+12,1 cup,55
+12,2 tablespoon,1
+12,sprinkle,5
+12,sprinkle,32
+13,1 pound,65
+13,6 tablespoon,33
+13,2,20
+13,2 teaspoon,32
+13,1 3/4 cup,70
+14,2 1/4 cup,4
+14,1 1/2 teaspoon,6
+14,2 teaspoon,8
+14,1 1/2 teaspoon,7
+14,1/4 teaspoon,10
+14,1/4 teaspoon,9
+14,1/4 teaspoon,5
+14,3/4 cup,1
+14,1/2 cup,3
+14,1/4 cup,2
+14,1/3 cup,71
+14,1,61
+14,2 teaspoon,12
+14,1/3 cup,2
+15,1 cup,1
+15,1 cup,2
+15,2 teaspoon,12
+15,1,61
+15,3 cup,4
+15,2 teaspoon,72
+17,3 tablespoon,1
+17,8 leaves,73
+17,1/4 cup,33
+17,1,74
+17,4 cloves,20
+17,1 teaspoon,76
+17,1 teaspoon,77
+17,2 tablespoons,40
+17,1/4 cup,79
+17,1 cup,13
+17,1/2 cup,57
+17,1 lb,80
+17,1/3 cup,58
+18,2 tablespoons,1
+18,2 tablespoons,4
+18,1,34
+18,2 cups,83
+18,2 cloves,20
+18,2 tablespoon,56
+18,1 tablespoon,86
+18,2 teaspoons,76
+18,to taste,77
+18,to taste,5
+18,6 cups,22
+18,3/4 lb,45
+18,8,89
+18,4 cups,52
+18,1 cup,57
+18,1 cup,87
+18,1/2 cup,58
+18,2 oz,90
+19,2 tablespoons,33
+19,1,34
+19,1/2 cup,39
+19,2,82
+19,6 cloves,20
+19,1/2 lb,75
+19,1/2 lb.,91
+19,1 tablespoon,86
+19,1 tablespoon,76
+19,1/2 teaspoon,77
+19,1/2 cup,40
+19,1/2 cup,36
+19,4 cups,22
+19,28 oz,64
+19,1/2 cup,23
+19,1 cup,87
+19,1/2 cup,58
+19,10,89
+20,2 lbs,45
+20,3 cups,92
+20,1/2 cup,93
+20,1/2 cup,94
+20,1/3 cup,24
+20,2 tablespoons,95
+20,2 cloves,20
+20,1 tablespoon,8
+20,to taste,54
+20,for serving,53
+16,2 pounds,75
+16,1,34
+16,1,78
+16,4,20
+16,2 1/2 tablespoon,81
+16,1 teaspoon,48
+16,1,82
+16,1 can,64
+16,1 can,84
+16,1 can,85
+16,1 1/2 cup,35
+16,1 cup,88
+16,1 tablespoon,40
+16,1 tablespoon,3
+16,to taste,5
+16,to taste,32
