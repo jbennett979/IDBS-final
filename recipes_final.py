@@ -3,6 +3,11 @@ import sqlite3
 conn = sqlite3.connect("social_media.db")
 cur = conn.cursor()
 
+tables = ["recipes", "required", "ingredients"]
+recipe_cols = ["r_id", "r_name", "description", "rating", "time", "servings"]
+required_cols = ["r_id", "amount", "i_id"]
+ingredient_cols = ["i_id", "i_name", "flavor", "type"]
+
 def table_schema():
     exit = False
     while exit == False:
@@ -38,6 +43,42 @@ def table_schema():
                     good_input = True
                 case _:
                     print("Please enter a or b")
+
+def stats():
+    return
+
+def where():
+    return
+
+def validate_table_col():
+    valid = False
+    while not valid:
+        print(f"\navailable tables:\n{tables}")
+        table = input("Choose from the tables above ")
+
+        if table in tables:
+            valid = True
+        else:
+            print("Invalid choice")
+    
+    if table == tables[0]:
+        cols = recipe_cols
+    elif table == tables[1]:
+        cols = required_cols
+    else:
+        cols = ingredient_cols
+
+    valid = False
+    while not valid:
+        print(f"\navailable columns:\n{cols}")
+        column = input("Choose from the columns above ")
+
+        if column in cols:
+            valid = True
+        else:
+            print("Invalid choice")
+    
+    return (table, column)
 
 def main():
     print("Welcome to the Recipe Database!!")
