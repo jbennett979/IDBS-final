@@ -1,12 +1,35 @@
 import sqlite3
 
-conn = sqlite3.connect("social_media.db")
+conn = sqlite3.connect("recipes_final.db")
 cur = conn.cursor()
 
 tables = ["recipes", "required", "ingredients"]
 recipe_cols = ["r_id", "r_name", "description", "rating", "time", "servings"]
 required_cols = ["r_id", "amount", "i_id"]
 ingredient_cols = ["i_id", "i_name", "flavor", "type"]
+
+db_schema = {
+    "recipes" : {
+        "r_id" : "numeric", 
+        "r_name" : "text", 
+        "description" : "text", 
+        "rating" : "numeric", 
+        "time" : "numeric", 
+        "servings" : "numeric"
+    },
+    "required" : {
+        "r_id" : "numeric",
+        "amount" : "text",
+        "i_id" : "numeric"
+    },
+    "ingredients" : {
+        "i_id" : "numeric", 
+        "i_name" : "text", 
+        "flavor" : "text", 
+        "type" : "text"
+    }
+}
+
 
 def table_schema():
     exit = False
@@ -34,7 +57,7 @@ def table_schema():
         print("b. Exit")
         good_input = False
         while good_input == False:
-            user = input("=>")
+            user = input("=> ")
             match user:
                 case "a":
                     good_input = True
@@ -67,38 +90,47 @@ def stats():
 def where():
     table, column = validate_table_col()
 
-    print("Please enter the condition for the WHERE statement")
-    print("ex: 'time <= 60'")
-    condition = input("=> ")
+    valid = False
 
-    # sql statement
+    while not valid:
+        print("\nPlease enter the condition for the WHERE statement")
+        print("ex: 'time <= 60'")
+        condition = input("=> ")
+
+        # sql statement
+        try:
+            results = cur.execute(f"SELECT {column} FROM {table} WHERE {condition}").fetchall()
+            valid = True
+        except:
+            print("Please enter a valid condition")
 
     # print results
+    for item in results:
+        print(item)
 
-def validate_table_col():
+    input()
+
+def validate_table_col(num_only = False):
     valid = False
     while not valid:
-        print(f"\navailable tables:\n{tables}")
-        table = input("Choose from the tables above ")
+        print(f"\navailable tables:")
+        for tab in db_schema.keys():
+            print(tab)
+        table = input("Choose from the tables above: ")
 
-        if table in tables:
+        if table in db_schema.keys():
             valid = True
         else:
             print("Invalid choice")
     
-    if table == tables[0]:
-        cols = recipe_cols
-    elif table == tables[1]:
-        cols = required_cols
-    else:
-        cols = ingredient_cols
-
     valid = False
     while not valid:
-        print(f"\navailable columns:\n{cols}")
-        column = input("Choose from the columns above ")
+        print(f"\navailable columns:")
+        for col in db_schema[table].keys():
+            print(col)
+        column = input("Choose from the columns above: ")
 
-        if column in cols:
+        if column in db_schema[table].keys():
             valid = True
         else:
             print("Invalid choice")
@@ -120,7 +152,7 @@ def main():
         print("g. See Data Visualizations") #jes
         print("h. Quit")
 
-        user_input = input("=>")
+        user_input = input("=> ")
         match user_input:
             case "a":
                 table_schema()
@@ -129,7 +161,7 @@ def main():
             case "c":
                 print("")
             case "d":
-                print("")
+                where()
             case "e":
                 print("")
             case "f":
