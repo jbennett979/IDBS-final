@@ -1,3 +1,4 @@
+from math import sqrt
 import sqlite3
 
 conn = sqlite3.connect("recipes_final.db")
@@ -68,11 +69,15 @@ def table_schema():
                     print("Please enter a or b")
 
 def stats():
-    options = ["mean", "min", "max", "median", "std"]
+    options = ["mean", "min", "max", "median", "stdev"]
+
+    table, column = validate_table_col(True)
 
     valid = False
     while not valid:
-        print("\nPlease choose a statistical query type:\n{options}")
+        print("\nPlease choose a statistical query type:")
+        for f in options:
+            print(f)
         func = input("=> ")
 
         if func in options:
@@ -80,12 +85,20 @@ def stats():
         else:
             print("Invalid choice")
 
-    # Tweak to ensure column is numeric
-    table, column = validate_table_col()
+    if func == "mean":
+        results = cur.execute(f"SELECT avg({column}) FROM {table}").fetchone()
+    elif func == "median":
+        results = cur.execute(f"SELECT {column} FROM {table} ORDER BY {column} LIMIT 1 OFFSET (SELECT count(*) FROM {table}) / 2").fetchone()
+    elif func == "stdev":
+        results = cur.execute(f"SELECT sum(({column} - mean.a) * ({column} - mean.a)), count(*)FROM {table}, (SELECT avg({column}) AS a FROM {table}) as mean").fetchone()
 
-    # sql statement
+        results = (sqrt(results[0] / results[1]),)
+    else:
+        results = cur.execute(f"SELECT {func}({column}) FROM {table}").fetchone()
 
     # print results
+    print(f"{func} of {table}.{column} = {results[0]}")
+    input()
 
 def where():
     table, column = validate_table_col()
@@ -114,23 +127,31 @@ def validate_table_col(num_only = False):
     valid = False
     while not valid:
         print(f"\navailable tables:")
-        for tab in db_schema.keys():
+        for tab in db_schema:
             print(tab)
         table = input("Choose from the tables above: ")
 
-        if table in db_schema.keys():
+        if table in db_schema:
             valid = True
         else:
             print("Invalid choice")
+
+    cols = []
     
     valid = False
     while not valid:
         print(f"\navailable columns:")
-        for col in db_schema[table].keys():
-            print(col)
+        for col in db_schema[table]:
+            if not num_only:
+                cols.append(col)
+                print(col)
+            elif db_schema[table][col] == "numeric":
+                cols.append(col)
+                print(col)
+                
         column = input("Choose from the columns above: ")
 
-        if column in db_schema[table].keys():
+        if column in cols:
             valid = True
         else:
             print("Invalid choice")
@@ -159,7 +180,7 @@ def main():
             case "b":
                 print("")
             case "c":
-                print("")
+                stats()
             case "d":
                 where()
             case "e":
@@ -174,6 +195,7 @@ def main():
             case _:
                 print("Please enter a, b, c, d, e, f, g or h")
 
+stats()
 
 if __name__ == '__main__':
     main()
