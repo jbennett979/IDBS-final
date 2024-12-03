@@ -45,10 +45,35 @@ def table_schema():
                     print("Please enter a or b")
 
 def stats():
-    return
+    options = ["mean", "min", "max", "median", "std"]
+
+    valid = False
+    while not valid:
+        print("\nPlease choose a statistical query type:\n{options}")
+        func = input("=> ")
+
+        if func in options:
+            valid = True
+        else:
+            print("Invalid choice")
+
+    # Tweak to ensure column is numeric
+    table, column = validate_table_col()
+
+    # sql statement
+
+    # print results
 
 def where():
-    return
+    table, column = validate_table_col()
+
+    print("Please enter the condition for the WHERE statement")
+    print("ex: 'time <= 60'")
+    condition = input("=> ")
+
+    # sql statement
+
+    # print results
 
 def validate_table_col():
     valid = False
