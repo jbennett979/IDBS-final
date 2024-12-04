@@ -5,6 +5,11 @@ import sqlite3
 conn = sqlite3.connect("recipes_final.db")
 cur = conn.cursor()
 
+tables = ["recipes", "required", "ingredients"]
+recipe_cols = ["r_id", "r_name", "description", "rating", "time", "servings"]
+required_cols = ["r_id", "amount", "i_id"]
+ingredient_cols = ["i_id", "i_name", "flavor", "type"]
+
 db_schema = {
     "recipes" : {
         "r_id" : "numeric", 
@@ -248,8 +253,6 @@ def main():
                 quit = True
             case _:
                 print("Please enter a, b, c, d, e, f, g or h")
-
-recipe_from_ingredients()
 
 if __name__ == '__main__':
     main()
