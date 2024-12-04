@@ -1,4 +1,5 @@
 from math import sqrt
+import pandas as pd
 import sqlite3
 
 conn = sqlite3.connect("recipes_final.db")
@@ -153,6 +154,64 @@ def validate_table_col(num_only = False):
     
     return (table, column)
 
+def recipe_from_ingredients():
+    ingredients = []
+
+    # Get ingredients from user
+    done = False
+    while not done:
+        print("\nEnter the name of an ingredient or 'done':")
+        iname = input("=> ")
+        new_ingredient = None
+
+        # Check if user is done entering ingredients
+        if iname == "done":
+            done = True
+        else:
+            # Fetch record from table
+            new_ingredient = cur.execute("SELECT i_id, i_name FROM ingredients WHERE i_name == (?)", (iname,)).fetchone()
+        
+        # Add to ingredients, only if record was found
+        if new_ingredient:
+            ingredients.append(new_ingredient)
+        else:
+            print("The ingredient you entered was not found")
+            
+        # print current list of ingredients
+        print("So far, you have added:")
+        for ingredient in ingredients:
+            print(ingredient[1])
+    
+    # Get list of ingredient ids
+    ingredients = pd.DataFrame(ingredients, columns=["i_id", "i_name"])
+    i_ids = ingredients["i_id"].values.tolist()
+
+    r_ids = []
+    makeable = []
+    recipes = cur.execute("SELECT * FROM recipes NATURAL JOIN required").fetchall()
+
+    # Find recipes where all needed ingredients are present
+    for recipe in recipes:
+        if recipe[0] not in r_ids:
+            r_ids.append(recipe[0])
+            makeable.append(recipe[1])
+
+        if recipe[-1] not in i_ids:
+            try:
+                makeable.remove(recipe[1])
+            except:
+                pass
+
+    # Output recipes that can be made
+    print("\nYou can make the following recipes: ")
+    for makeable_recipe in makeable:
+        print(makeable_recipe)
+    
+    if len(makeable) == 0:
+        print("You can't make any recipes, try entering more ingredients, or restock your pantry!")
+
+    print()
+
 def main():
     print("Welcome to the Recipe Database!!")
 
@@ -181,7 +240,7 @@ def main():
             case "e":
                 print("")
             case "f":
-                print("")
+                recipe_from_ingredients()
             case "g":
                 print("")
             case "h":
@@ -190,7 +249,7 @@ def main():
             case _:
                 print("Please enter a, b, c, d, e, f, g or h")
 
-stats()
+recipe_from_ingredients()
 
 if __name__ == '__main__':
     main()
