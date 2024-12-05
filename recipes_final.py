@@ -77,7 +77,7 @@ def change_tables():
         print("c. modify")
         print("d. exit")
         choice = input("=> ")
-        if choice == "a" or choice == "b" or choice == "c":
+        if choice == "a" or choice == "b":
             valid = False
             while valid == False:
                 print("Add/Remove/Modify from Tables:")
@@ -161,7 +161,7 @@ def change_tables():
                                 conn.commit()
                             except ValueError:
                                 print("Please enter a valid id")
-                case "b":
+                case _:
                     print(f"You chose to remove an entry from the {table} table")
                     if table == "recipes":
                         while True:
@@ -238,14 +238,89 @@ def change_tables():
                                 break
                             except ValueError:
                                 print("Please enter a valid i_id")
-                #case "c":
-                case _:
-                    print("please enter a, b, c, or d")
+        elif choice == "c":
+            modify()
         elif choice == "d":
             exit = True
         else:
             print("Please enter a, b, c, or d")
 
+def modify():
+    valid = False
+    while not valid:
+        print("\nPlease enter the table and column that you would like to modify")
+        table, column = validate_table_col()
+
+        if column in ["r_id", "i_id"]:
+            print("You cannot modify primary / foreign key fields")
+        else:
+            valid = True
+
+    id_type = "i_id"
+    if table == "recipes":
+        id_type = "r_id"
+
+    if table != "required":
+        id_list = cur.execute(f"SELECT {id_type} FROM {table}").fetchall()
+        id_list = pd.DataFrame(id_list, columns=["id"])["id"].values.tolist()
+
+        id = validate_id(id_list)
+
+    else:
+        r_ids = cur.execute(f"SELECT r_id FROM Recipes").fetchall()
+        r_ids = pd.DataFrame(r_ids, columns=["id"])["id"].values.tolist()
+
+        r_id = validate_id(r_ids, "recipe id")
+
+        i_ids = cur.execute(f"SELECT i_id FROM Ingredients").fetchall()
+        i_ids = pd.DataFrame(i_ids, columns=["id"])["id"].values.tolist()
+
+        i_id = validate_id(i_ids, "ingredient id")
+
+        record = cur.execute(f"SELECT * FROM Required WHERE r_id == {r_id} AND i_id == {i_id}").fetchone()
+
+        if not record:
+            print(f"No record with r_id == {r_id} and i_id == {i_id} exists")
+            return
+
+    valid = False
+    while not valid:
+        print(f"Please enter the new value for {column}")
+        new_val = input("=> ")
+
+        if db_schema[table][column] == "text":
+            valid = True
+        else:
+            try:
+                new_val = float(new_val)
+                valid = True
+            except:
+                print(f"{column} represents a number, please enter a number")
+    
+    if table != "required":
+        cur.execute(f"UPDATE {table} SET {column} = (?) WHERE {id_type} == {id}", (new_val,))
+        conn.commit()
+    else:
+        cur.execute(f"UPDATE {table} SET {column} = (?) WHERE r_id == {r_id} AND i_id == {i_id}", (new_val,))
+        conn.commit()
+
+
+def validate_id(id_list, type = "id"):
+    id = None
+    valid = False
+    while not valid:
+        print(f"\nPlase enter the {type} of the record you would like to modify:")
+        try:
+            id = float(input("=> "))
+        except:
+            print("Please enter a number")
+
+        if id in id_list:
+            valid = True
+        else:
+            print("The id you entered is not valid or no record with that id exists, please try another")
+
+    return id
 
 def stats():
     options = ["mean", "min", "max", "median", "stdev"]
