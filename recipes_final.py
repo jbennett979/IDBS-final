@@ -1,6 +1,8 @@
 from math import sqrt
 import pandas as pd
 import sqlite3
+import matplotlib.pyplot as plt
+import numpy as np
 
 conn = sqlite3.connect("recipes_final.db")
 cur = conn.cursor()
@@ -517,7 +519,35 @@ def recipe_from_ingredients():
     print()
 
 def bar_chart():
-    most_used_query = f"SELECT i_name FROM ingredients "
+    most_used_query = f"SELECT ingredients.i_name, count(required.i_id) as 'appearances' FROM ingredients INNER JOIN required on ingredients.i_id = required.i_id GROUP BY ingredients.i_name ORDER BY appearances DESC LIMIT 10;"
+    cur.execute(most_used_query)
+    most_used_stuff = cur.fetchall()
+    x = []
+    y = []
+    for i in most_used_stuff:
+        x.append(i[0])
+        y.append(i[1])
+    plt.figure(figsize=(20, 8))
+    plt.bar(x, y)
+    plt.title("Most used ingredients")
+    plt.xlabel("Ingredients")
+    plt.ylabel("Number of times used in any recipe")
+    plt.show()
+
+def scatter():
+    num_servings_query = f"SELECT time, servings FROM recipes;"
+    cur.execute(num_servings_query)
+    worth_stuff = cur.fetchall()
+    x = []
+    y = []
+    for i in worth_stuff:
+        x.append(i[0])
+        y.append(i[1])
+    plt.scatter(x, y)
+    plt.title("How worth it are these recipes: Cook time by number of servings")
+    plt.xlabel("Cook Time")
+    plt.ylabel("Number of Servings")
+    plt.show()
 
 def data_visualization():
     print("You chose to see some data")
@@ -529,7 +559,7 @@ def data_visualization():
         data_choice = input("=> ")
         match data_choice:
             case "a":
-                print("")
+                scatter()
             case "b":
                 bar_chart()
             case "c":
@@ -567,7 +597,7 @@ def main():
             case "f":
                 recipe_from_ingredients()
             case "g":
-                print("")
+                data_visualization()
             case "h":
                 print("Logged Out Successfully!")
                 quit = True
