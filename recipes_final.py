@@ -218,64 +218,70 @@ def remove(table):
                         cur.execute(rrequired_remove_query)
                         conn.commit()
                         valid_r = True
-                    break
+                break
             except ValueError:
                 print("Please enter a valid r_id")
 
     elif table == "required":
         while True:
             try:
-                required_remove_i = int(
-                    input("Please type the i_id (ingredient id) of the ingredient you want to remove: "))
-                required_remove_r = int(
-                    input("Please type the r_id (recipe id) of the recipe you want to remove an ingredient from: "))
-                recipe_size_query = f"SELECT COUNT(*) FROM recipes"
-                cur.execute(recipe_size_query)
-                recipe_sizer = cur.fetchone()
-                recipe_size = recipe_sizer[0]
+                valid_id = False
+                while valid_id == False:
+                    required_remove_i = int(
+                        input("Please type the i_id (ingredient id) of the ingredient you want to remove: "))
+                    required_remove_r = int(
+                        input("Please type the r_id (recipe id) of the recipe you want to remove an ingredient from: "))
+                    recipe_size_query = f"SELECT COUNT(*) FROM recipes"
+                    cur.execute(recipe_size_query)
+                    recipe_sizer = cur.fetchone()
+                    recipe_size = recipe_sizer[0]
 
-                ingredients_size_query_r = f"SELECT COUNT(*) FROM recipes"
-                cur.execute(ingredients_size_query_r)
-                ingredients_sizer_r = cur.fetchone()
-                ingredients_size_r = ingredients_sizer_r[0]
-                if required_remove_r > recipe_size:
-                    print("Please enter a valid r_id")
-                elif required_remove_r > ingredients_size_r:
-                    print("Please enter a valid i_id")
-                else:
-                    required_remove_query = f"DELETE FROM required WHERE r_id = {required_remove_r} AND i_id = {required_remove_i}"
-                    required_remove_query_r = f"DELETE FROM recipes WHERE r_id = {required_remove_r}"
-                    required_remove_query_i = f"DELETE FROM ingredients WHERE i_id = {required_remove_i}"
-                    cur.execute(required_remove_query)
-                    conn.commit()
-                    cur.execute(required_remove_query_r)
-                    conn.commit()
-                    cur.execute(required_remove_query_i)
-                    conn.commit()
+                    ingredients_size_query_r = f"SELECT COUNT(*) FROM recipes"
+                    cur.execute(ingredients_size_query_r)
+                    ingredients_sizer_r = cur.fetchone()
+                    ingredients_size_r = ingredients_sizer_r[0]
+                    if required_remove_r > recipe_size:
+                        print("Please enter a valid r_id")
+                    elif required_remove_r > ingredients_size_r:
+                        print("Please enter a valid i_id")
+                    else:
+                        required_remove_query = f"DELETE FROM required WHERE r_id = {required_remove_r} AND i_id = {required_remove_i}"
+                        required_remove_query_r = f"DELETE FROM recipes WHERE r_id = {required_remove_r}"
+                        required_remove_query_i = f"DELETE FROM ingredients WHERE i_id = {required_remove_i}"
+                        cur.execute(required_remove_query)
+                        conn.commit()
+                        cur.execute(required_remove_query_r)
+                        conn.commit()
+                        cur.execute(required_remove_query_i)
+                        conn.commit()
+                        valid_id = True
                 break
             except ValueError:
                 print("Please enter a valid r_id and i_id")
     else:
         while True:
             try:
-                ingredients_remove = int(
-                    input("Please type the i_id (ingredient id) of the ingredient you want to remove: "))
-                check_query = f"SELECT count(i_id) FROM ingredients WHERE i_id = {ingredients_remove}"
-                cur.execute(check_query)
-                checkers = cur.fetchone()
-                checker = checkers[0]
-                ingredients_size_query = f"SELECT COUNT(*) FROM ingredients"
-                cur.execute(ingredients_size_query)
-                ingredients_sizer = cur.fetchone()
-                ingredients_size = ingredients_sizer[0]
-                if ingredients_remove > ingredients_size:
-                    print("Please enter an i_id from the ingredients table")
-                elif checker > 0:
-                    print("You can only remove ingredients that do not appear in any recipes. Please try again.")
-                else:
-                    ingredients_remove_query = f"DELETE FROM ingredients WHERE i_id = {ingredients_remove}"
-                    cur.execute(ingredients_remove_query)
-                    conn.commit()
+                valid_i = False
+                while valid_i == False:
+                    ingredients_remove = int(
+                        input("Please type the i_id (ingredient id) of the ingredient you want to remove: "))
+                    check_query = f"SELECT count(i_id) FROM ingredients WHERE i_id = {ingredients_remove}"
+                    cur.execute(check_query)
+                    checkers = cur.fetchone()
+                    checker = checkers[0]
+                    ingredients_size_query = f"SELECT COUNT(*) FROM ingredients"
+                    cur.execute(ingredients_size_query)
+                    ingredients_sizer = cur.fetchone()
+                    ingredients_size = ingredients_sizer[0]
+                    if ingredients_remove > ingredients_size:
+                        print("Please enter an i_id from the ingredients table")
+                    elif checker > 0:
+                        print("You can only remove ingredients that do not appear in any recipes. Please try again.")
+                    else:
+                        ingredients_remove_query = f"DELETE FROM ingredients WHERE i_id = {ingredients_remove}"
+                        cur.execute(ingredients_remove_query)
+                        conn.commit()
+                        valid_i = True
                 break
             except ValueError:
                 print("Please enter a valid i_id")
