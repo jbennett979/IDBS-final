@@ -377,6 +377,52 @@ def where():
 
     input()
 
+def see_ingredients():
+    print("You chose to see the ingredients of a recipe")
+    exit_i = False
+    while exit_i == False:
+        while True:
+            try:
+                r_exists = False
+                while r_exists == False:
+                    recipe_choice = int(input("Please type the r_id of an existing recipe in the table to see its ingredients: "))
+                    r_exists_query = f"SELECT count(*) FROM recipes WHERE r_id = {recipe_choice}"
+                    cur.execute(r_exists_query)
+                    recipe_checker = cur.fetchone()
+                    r_check = recipe_checker[0]
+                    if r_check == 0:
+                        print("Please enter an existing recipe")
+                    else:
+                        r_exists = True
+                break
+
+            except ValueError:
+                print("Please enter a valid r_id")
+        recipe_query = f"SELECT r_name FROM recipes WHERE r_id = {recipe_choice}"
+        cur.execute(recipe_query)
+        recipe_name_line = cur.fetchone()
+        recipe_name = recipe_name_line[0]
+        ingredients_query = f"SELECT i_name,amount FROM required INNER JOIN ingredients on required.i_id = ingredients.i_id WHERE required.r_id = {recipe_choice}"
+        cur.execute(ingredients_query)
+        ingredients_checker = cur.fetchall()
+        print(f"{recipe_name}:")
+        for i in ingredients_checker:
+            print(f"{i[1]} {i[0]}")
+
+        good_choice = False
+        while good_choice == False:
+            print("")
+            print("a. See another recipe")
+            print("b. exit")
+            user_choice = input("=> ")
+            if user_choice == "a":
+                good_choice = True
+            elif user_choice == "b":
+                exit_i = True
+                good_choice = True
+            else:
+                print("Please enter a or b")
+
 def validate_table_col(num_only = False):
     valid = False
     while not valid:
@@ -470,6 +516,27 @@ def recipe_from_ingredients():
 
     print()
 
+def bar_chart():
+    most_used_query = f"SELECT i_name FROM ingredients "
+
+def data_visualization():
+    print("You chose to see some data")
+    exit_date = False
+    while exit_date == False:
+        print("a. See number of servings by time")
+        print("b. See most used ingredients")
+        print("c. Exit")
+        data_choice = input("=> ")
+        match data_choice:
+            case "a":
+                print("")
+            case "b":
+                bar_chart()
+            case "c":
+                exit_date = True
+            case _:
+                print("Please enter a, b, or c")
+
 def main():
     print("Welcome to the Recipe Database!!")
 
@@ -496,7 +563,7 @@ def main():
             case "d":
                 where()
             case "e":
-                print("")
+                see_ingredients()
             case "f":
                 recipe_from_ingredients()
             case "g":
