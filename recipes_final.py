@@ -201,21 +201,24 @@ def remove(table):
     if table == "recipes":
         while True:
             try:
-                recipes_remove = int(input("Please type the r_id (recipe id) of the recipe that you want to remove: "))
-                recipe_size_query = f"SELECT COUNT(*) FROM recipes WHERE r_id = {recipes_remove}"
-                cur.execute(recipe_size_query)
-                recipe_sizer = cur.fetchone()
-                recipe_size = recipe_sizer[0]
-                if recipe_size == 0:
-                    print("Please enter a valid r_id")
-                else:
-                    recipes_remove_query = f"DELETE FROM recipes WHERE r_id = {recipes_remove}"
-                    rrequired_remove_query = f"DELETE FROM required WHERE r_id = {recipes_remove}"
-                    cur.execute(recipes_remove_query)
-                    conn.commit()
-                    cur.execute(rrequired_remove_query)
-                    conn.commit()
-                break
+                valid_r = False
+                while valid_r == False:
+                    recipes_remove = int(input("Please type the r_id (recipe id) of the recipe that you want to remove: "))
+                    recipe_size_query = f"SELECT COUNT(*) FROM recipes WHERE r_id = {recipes_remove}"
+                    cur.execute(recipe_size_query)
+                    recipe_sizer = cur.fetchone()
+                    recipe_size = recipe_sizer[0]
+                    if recipe_size == 0:
+                        print("Please enter a valid r_id")
+                    else:
+                        recipes_remove_query = f"DELETE FROM recipes WHERE r_id = {recipes_remove}"
+                        rrequired_remove_query = f"DELETE FROM required WHERE r_id = {recipes_remove}"
+                        cur.execute(recipes_remove_query)
+                        conn.commit()
+                        cur.execute(rrequired_remove_query)
+                        conn.commit()
+                        valid_r = True
+                    break
             except ValueError:
                 print("Please enter a valid r_id")
 
