@@ -231,18 +231,18 @@ def remove(table):
                         input("Please type the i_id (ingredient id) of the ingredient you want to remove: "))
                     required_remove_r = int(
                         input("Please type the r_id (recipe id) of the recipe you want to remove an ingredient from: "))
-                    recipe_size_query = f"SELECT COUNT(*) FROM recipes"
+                    recipe_size_query = f"SELECT count(r_id) FROM required WHERE r_id = {required_remove_r}"
                     cur.execute(recipe_size_query)
                     recipe_sizer = cur.fetchone()
                     recipe_size = recipe_sizer[0]
 
-                    ingredients_size_query_r = f"SELECT COUNT(*) FROM recipes"
+                    ingredients_size_query_r = f"SELECT count(i_id) FROM required WHERE i_id = {recipes_new_value}"
                     cur.execute(ingredients_size_query_r)
                     ingredients_sizer_r = cur.fetchone()
                     ingredients_size_r = ingredients_sizer_r[0]
-                    if required_remove_r > recipe_size:
+                    if recipe_size == 0:
                         print("Please enter a valid r_id")
-                    elif required_remove_i > ingredients_size_r:
+                    elif ingredients_size_r == 0:
                         print("Please enter a valid i_id")
                     else:
                         required_remove_query = f"DELETE FROM required WHERE r_id = {required_remove_r} AND i_id = {required_remove_i}"
