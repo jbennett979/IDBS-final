@@ -242,7 +242,7 @@ def remove(table):
                     ingredients_size_r = ingredients_sizer_r[0]
                     if required_remove_r > recipe_size:
                         print("Please enter a valid r_id")
-                    elif required_remove_r > ingredients_size_r:
+                    elif required_remove_i > ingredients_size_r:
                         print("Please enter a valid i_id")
                     else:
                         required_remove_query = f"DELETE FROM required WHERE r_id = {required_remove_r} AND i_id = {required_remove_i}"
