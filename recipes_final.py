@@ -236,7 +236,7 @@ def remove(table):
                     recipe_sizer = cur.fetchone()
                     recipe_size = recipe_sizer[0]
 
-                    ingredients_size_query_r = f"SELECT count(i_id) FROM required WHERE i_id = {recipes_new_value}"
+                    ingredients_size_query_r = f"SELECT count(i_id) FROM required WHERE i_id = {required_remove_i}"
                     cur.execute(ingredients_size_query_r)
                     ingredients_sizer_r = cur.fetchone()
                     ingredients_size_r = ingredients_sizer_r[0]
