@@ -239,7 +239,7 @@ def remove(table):
                         valid_i = True
 
                     valid_r = False
-                    while valid_r:
+                    while valid_r == False:
                         required_remove_r = int(
                             input("Please type the r_id (recipe id) of the recipe you want to remove an ingredient from: "))
                         recipe_size_query = f"SELECT count(r_id) FROM required WHERE r_id = {required_remove_r}"
