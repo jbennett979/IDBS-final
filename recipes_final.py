@@ -79,7 +79,7 @@ def change_tables():
         print("c. modify")
         print("d. exit")
         choice = input("=> ")
-        if choice == "a" or choice == "b" or choice == "c":
+        if choice == "a" or choice == "b":
             valid = False
             while valid == False:
                 print("Add/Remove/Modify from Tables:")
@@ -93,10 +93,10 @@ def change_tables():
             match choice:
                 case "a":
                     add(table)
-                case "b":
+                case _:
                     remove(table)
-                case "_":
-                    modify()
+        elif choice == "c":
+            modify()
         elif choice == "d":
             exit = True
         else:
