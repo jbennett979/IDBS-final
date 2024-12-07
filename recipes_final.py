@@ -245,7 +245,9 @@ def change_tables():
         else:
             print("Please enter a, b, c, or d")
 
+# method to modify a column of a record already in the database
 def modify():
+    # get table / column choice, prevent primary key modification
     valid = False
     while not valid:
         print("\nPlease enter the table and column that you would like to modify")
@@ -256,33 +258,39 @@ def modify():
         else:
             valid = True
 
+    # Get id choice from user
     id_type = "i_id"
     if table == "recipes":
         id_type = "r_id"
 
     if table != "required":
+        # prompt user, give error if choice is not witin list of ids
         id_list = cur.execute(f"SELECT {id_type} FROM {table}").fetchall()
         id_list = pd.DataFrame(id_list, columns=["id"])["id"].values.tolist()
 
         id = validate_id(id_list)
 
     else:
+        # prompt user for an id that appears in recipe table
         r_ids = cur.execute(f"SELECT r_id FROM Recipes").fetchall()
         r_ids = pd.DataFrame(r_ids, columns=["id"])["id"].values.tolist()
 
         r_id = validate_id(r_ids, "recipe id")
 
+        # prompt user for an id that appears in ingredients table
         i_ids = cur.execute(f"SELECT i_id FROM Ingredients").fetchall()
         i_ids = pd.DataFrame(i_ids, columns=["id"])["id"].values.tolist()
 
         i_id = validate_id(i_ids, "ingredient id")
 
+        # check if record with given ids exists in required table
         record = cur.execute(f"SELECT * FROM Required WHERE r_id == {r_id} AND i_id == {i_id}").fetchone()
 
         if not record:
             print(f"No record with r_id == {r_id} and i_id == {i_id} exists")
             return
 
+    # Get the new value from the user, ensure it is numeric for numeric columns
     valid = False
     while not valid:
         print(f"Please enter the new value for {column}")
@@ -297,6 +305,7 @@ def modify():
             except:
                 print(f"{column} represents a number, please enter a number")
     
+    # update the record specified
     if table != "required":
         cur.execute(f"UPDATE {table} SET {column} = (?) WHERE {id_type} == {id}", (new_val,))
         conn.commit()
@@ -304,7 +313,7 @@ def modify():
         cur.execute(f"UPDATE {table} SET {column} = (?) WHERE r_id == {r_id} AND i_id == {i_id}", (new_val,))
         conn.commit()
 
-
+# Query user for id in provided list
 def validate_id(id_list, type = "id"):
     id = None
     valid = False
@@ -322,11 +331,14 @@ def validate_id(id_list, type = "id"):
 
     return id
 
+# Allow user to execute statistical queries on numeric columns
 def stats():
     options = ["mean", "min", "max", "median", "stdev"]
 
+    # get users choice of table - column
     table, column = validate_table_col(True)
 
+    # prompt user for a type of query
     valid = False
     while not valid:
         print("\nPlease choose a statistical query type:")
@@ -339,6 +351,7 @@ def stats():
         else:
             print("Invalid choice")
 
+    # execute appropriate query based on user's choices
     if func == "mean":
         results = cur.execute(f"SELECT avg({column}) FROM {table}").fetchone()
     elif func == "median":
@@ -354,17 +367,20 @@ def stats():
     print(f"{func} of {table}.{column} = {results[0]}")
     input()
 
+# Allow user to execute a where query
 def where():
+    # Get choice of table and column to select
     table, column = validate_table_col()
 
     valid = False
 
+    # Query user for query condition
     while not valid:
         print("\nPlease enter the condition for the WHERE statement")
         print("ex: 'time <= 60'")
         condition = input("=> ")
 
-        # sql statement
+        # try sql statement continue if it doesnt throw an error
         try:
             results = cur.execute(f"SELECT {column} FROM {table} WHERE {condition}").fetchall()
             valid = True
@@ -377,7 +393,9 @@ def where():
 
     input()
 
+# Get a choice of table and column
 def validate_table_col(num_only = False):
+    # Select Table
     valid = False
     while not valid:
         print(f"\navailable tables:")
@@ -392,6 +410,7 @@ def validate_table_col(num_only = False):
 
     cols = []
     
+    # Select column from chosen table
     valid = False
     while not valid:
         print(f"\navailable columns:")
